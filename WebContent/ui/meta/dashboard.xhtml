@@ -1,0 +1,304 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="title">
+        Metadata Management System Dashboard
+    </ui:define>
+
+
+	<ui:define name="content">
+
+		<!-- highlight area start-->
+		<div class="ContentSideSections overHidden">
+			Welcome to MetaData Management System Dashboard! <br /> <br />
+
+			<h:form id="form">
+				<p:tabView orientation="top" dynamic="true" cache="true">
+
+					<p:tab title="PROD">
+						<h:form>
+							<h:panelGrid columns="2" columnClasses="left,right"
+								style="width:100%">
+								<p:chart type="pie" model="#{dashBoardChartView.pieModelPROD1}"
+									style="width:400px;height:300px;margin-left: auto;margin-right: auto;">
+								</p:chart>
+
+								<p:chart type="pie" model="#{dashBoardChartView.pieModelPROD2}"
+									style="width:400px;height:300px;margin-left: auto;margin-right: auto;">
+								</p:chart>
+							</h:panelGrid>
+
+							<p:panelGrid columns="3" columnClasses="left,right,left"
+								style="width:100%">
+								<p:dataTable value="#{dashBoardDataListView.topHitsProd}"
+									var="topHits" paginator="true" rows="5">
+									<f:facet name="header">
+           								Top searches in MDMS
+       								 </f:facet>
+									<p:column headerText="Rank">
+										<div align="center">
+											<h:outputText value="#{topHits.ranking}" />
+										</div>
+									</p:column>
+									<p:column headerText="Search Term">
+										<div align="center">
+											<h:outputText value="#{topHits.searchTerm}" />
+										</div>
+									</p:column>
+								</p:dataTable>
+
+								<p:dataTable
+									value="#{dashBoardDataListView.newlyUpdatedFeedsProd}"
+									var="feed" type="ordered" paginator="true" rows="5">
+									<f:facet name="header">
+           								 Newly updated feeds           								 
+       								 </f:facet>
+
+									<p:column headerText="Feed Name">
+										<div align="center">
+											<h:outputText value="#{feed.feedName}" />
+										</div>
+									</p:column>
+
+									<p:column headerText="Version">
+										<div align="center">
+											<h:outputText value="#{feed.version}" />
+										</div>
+									</p:column>
+
+									<p:column headerText="Date">
+										<div align="center">
+											<h:outputText value="#{feed.date}">
+												<f:convertDateTime type="date" pattern="dd.MM.yyyy"
+													timeZone="Europe/Berlin" />
+											</h:outputText>
+										</div>
+									</p:column>
+								</p:dataTable>
+
+								<p:dataTable
+									value="#{dashBoardDataListView.toBeUpdatedFeedsProd}"
+									var="feed" type="ordered" paginator="true" rows="5">
+									<f:facet name="header">
+           								 Upcoming feed updates
+       								 </f:facet>
+
+									<p:column headerText="Feed Name">
+										<div align="center">
+											<h:outputText value="#{feed.feedName}" />
+										</div>
+									</p:column>
+
+									<p:column headerText="Version">
+										<div align="center">
+											<h:outputText value="#{feed.version}" />
+										</div>
+									</p:column>
+
+									<p:column headerText="Date">
+										<div align="center">
+											<h:outputText value="#{feed.date}">
+												<f:convertDateTime type="date" pattern="dd.MM.yyyy"
+													timeZone="Europe/Berlin" />
+											</h:outputText>
+										</div>
+									</p:column>
+								</p:dataTable>
+							</p:panelGrid>
+						</h:form>
+					</p:tab>
+
+					<p:tab title="PTA ">
+						<h:form>
+							<h:panelGrid columns="2" columnClasses="left,right"
+								style="width:100%">
+								<p:chart type="pie" model="#{dashBoardChartView.pieModelPTA1}"
+									style="width:400px;height:300px;margin-left: auto;margin-right: auto;">
+								</p:chart>
+
+								<p:chart type="pie" model="#{dashBoardChartView.pieModelPTA2}"
+									style="width:400px;height:300px;margin-left: auto;margin-right: auto;">
+								</p:chart>
+							</h:panelGrid>
+							<p:panelGrid columns="3" columnClasses="left,right,left"
+								style="width:100%">
+								<p:dataTable value="#{dashBoardDataListView.topHitsPta}"
+									var="topHits" paginator="true" rows="5">
+									<f:facet name="header">
+           								Top searches in MDMS
+       								 </f:facet>
+									<p:column headerText="Rank">
+										<div align="center">
+											<h:outputText value="#{topHits.ranking}" />
+										</div>
+									</p:column>
+									<p:column headerText="Search Term">
+										<div align="center">
+											<h:outputText value="#{topHits.searchTerm}" />
+										</div>
+									</p:column>
+								</p:dataTable>
+
+								<p:dataTable
+									value="#{dashBoardDataListView.newlyUpdatedFeedsPta}"
+									var="feed" type="ordered" paginator="true" rows="5">
+									<f:facet name="header">
+           								 Newly updated feeds           								 
+       								 </f:facet>
+
+									<p:column headerText="Feed Name">
+										<div align="center">
+											<h:outputText value="#{feed.feedName}" />
+										</div>
+									</p:column>
+
+									<p:column headerText="Version">
+										<div align="center">
+											<h:outputText value="#{feed.version}" />
+										</div>
+									</p:column>
+
+									<p:column headerText="Date">
+										<div align="center">
+											<h:outputText value="#{feed.date}">
+												<f:convertDateTime type="date" pattern="dd.MM.yyyy"
+													timeZone="Europe/Berlin" />
+											</h:outputText>
+										</div>
+									</p:column>
+								</p:dataTable>
+
+								<p:dataTable
+									value="#{dashBoardDataListView.toBeUpdatedFeedsPta}" var="feed"
+									type="ordered" paginator="true" rows="5">
+									<f:facet name="header">
+           								 Upcoming feed updates
+       								 </f:facet>
+
+									<p:column headerText="Feed Name">
+										<div align="center">
+											<h:outputText value="#{feed.feedName}" />
+										</div>
+									</p:column>
+
+									<p:column headerText="Version">
+										<div align="center">
+											<h:outputText value="#{feed.version}" />
+										</div>
+									</p:column>
+
+									<p:column headerText="Date">
+										<div align="center">
+											<h:outputText value="#{feed.date}">
+												<f:convertDateTime type="date" pattern="dd.MM.yyyy"
+													timeZone="Europe/Berlin" />
+											</h:outputText>
+										</div>
+									</p:column>
+								</p:dataTable>
+							</p:panelGrid>
+						</h:form>
+					</p:tab>
+
+					<p:tab title="IT ">
+						<h:form>
+							<h:panelGrid columns="2" columnClasses="left,right"
+								style="width:100%">
+								<p:chart type="pie" model="#{dashBoardChartView.pieModelIT1}"
+									style="width:400px;height:300px;margin-left: auto;margin-right: auto;">
+								</p:chart>
+
+								<p:chart type="pie" model="#{dashBoardChartView.pieModelIT2}"
+									style="width:400px;height:300px;margin-left: auto;margin-right: auto;">
+								</p:chart>
+							</h:panelGrid>
+							<p:panelGrid columns="3" columnClasses="left,right,left"
+								style="width:100%">
+								<p:dataTable value="#{dashBoardDataListView.topHitsIt}"
+									var="topHits" paginator="true" rows="5">
+									<f:facet name="header">
+           								Top searches in MDMS
+       								 </f:facet>
+									<p:column headerText="Rank">
+										<div align="center">
+											<h:outputText value="#{topHits.ranking}" />
+										</div>
+									</p:column>
+									<p:column headerText="Search Term">
+										<div align="center">
+											<h:outputText value="#{topHits.searchTerm}" />
+										</div>
+									</p:column>
+								</p:dataTable>
+
+								<p:dataTable
+									value="#{dashBoardDataListView.newlyUpdatedFeedsIt}" var="feed"
+									type="ordered" paginator="true" rows="5">
+									<f:facet name="header">
+           								 Newly updated feeds           								 
+       								 </f:facet>
+
+									<p:column headerText="Feed Name">
+										<div align="center">
+											<h:outputText value="#{feed.feedName}" />
+										</div>
+									</p:column>
+
+									<p:column headerText="Version">
+										<div align="center">
+											<h:outputText value="#{feed.version}" />
+										</div>
+									</p:column>
+
+									<p:column headerText="Date">
+										<div align="center">
+											<h:outputText value="#{feed.date}">
+												<f:convertDateTime type="date" pattern="dd.MM.yyyy"
+													timeZone="Europe/Berlin" />
+											</h:outputText>
+										</div>
+									</p:column>
+								</p:dataTable>
+
+								<p:dataTable value="#{dashBoardDataListView.toBeUpdatedFeedsIt}"
+									var="feed" type="ordered" paginator="true" rows="5">
+									<f:facet name="header">
+           								 Upcoming feed updates
+       								 </f:facet>
+
+									<p:column headerText="Feed Name">
+										<div align="center">
+											<h:outputText value="#{feed.feedName}" />
+										</div>
+									</p:column>
+
+									<p:column headerText="Version">
+										<div align="center">
+											<h:outputText value="#{feed.version}" />
+										</div>
+									</p:column>
+
+									<p:column headerText="Date">
+										<div align="center">
+											<h:outputText value="#{feed.date}">
+												<f:convertDateTime type="date" pattern="dd.MM.yyyy"
+													timeZone="Europe/Berlin" />
+											</h:outputText>
+										</div>
+									</p:column>
+								</p:dataTable>
+							</p:panelGrid>
+						</h:form>
+					</p:tab>
+
+				</p:tabView>
+			</h:form>
+		</div>
+		<!-- highlight area end-->
+
+	</ui:define>
+
+</ui:composition>

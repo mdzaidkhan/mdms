@@ -1,0 +1,34 @@
+{
+"nodes":[
+{"node":0,"name":"SCHEMA_A.TABLE_1 (Feed 1) ","type":"Data","dataOwner":"Benito Bieker","dataSteward":"Emanuel Morton","dataExec":"David Peter","App":"App_1","version":"1"},
+{"node":1,"name":"SCHEMA_B.TABLE_1 (Feed 2)","type":"Data","dataOwner":"Alphonse Avallone","dataSteward":"Alex Kim","dataExec":"David Peter","App":"App_2","version":"1"},
+{"node":2,"name":"SCHEMA_C.TABLE_1 (Feed 3)","type":"Data","dataOwner":"Brittney Bledsoe","dataSteward":"Terry Hill","dataExec":"David Peter","App":"App_3","version":"1"},
+{"node":3,"name":"SCHEMA_D.TABLE_1 (Feed 4)","type":"Report","dataOwner":"Margeret Minard","dataSteward":"Darrell Wilson","dataExec":"David Peter","App":"App_4","version":"1"},
+{"node":4,"name":"SCHEMA_1.TABLE_1","type":"Data","dataOwner":"Unknown","dataSteward":"Unknown","dataExec":"Unknown","App":"Unknown","version":"Unknown"},
+{"node":5,"name":"SCHEMA_2.TABLE_2","type":"Data","dataOwner":"Unknown","dataSteward":"Unknown","dataExec":"Unknown","App":"Unknown","version":"Unknown"},
+{"node":6,"name":"SCHEMA_3.TABLE_3","type":"Data","dataOwner":"Unknown","dataSteward":"Unknown","dataExec":"Unknown","App":"Unknown","version":"Unknown"},
+{"node":7,"name":"SCHEMA_4.TABLE_4","type":"Data","dataOwner":"Unknown","dataSteward":"Unknown","dataExec":"Unknown","App":"Unknown","version":"Unknown"},
+{"node":8,"name":"SCHEMA_5.TABLE_5","type":"Data","dataOwner":"Unknown","dataSteward":"Unknown","dataExec":"Unknown","App":"Unknown","version":"Unknown"},
+{"node":9,"name":"SCHEMA_6.TABLE_6","type":"Data","dataOwner":"Unknown","dataSteward":"Unknown","dataExec":"Unknown","App":"Unknown","version":"Unknown"},
+{"node":10,"name":"SCHEMA_7.TABLE_7","type":"Data","dataOwner":"Unknown","dataSteward":"Unknown","dataExec":"Unknown","App":"Unknown","version":"Unknown"},
+{"node":11,"name":"SCHEMA_8.TABLE_8","type":"Data","dataOwner":"Unknown","dataSteward":"Unknown","dataExec":"Unknown","App":"Unknown","version":"Unknown"},
+{"node":12,"name":"SCHEMA_9.TABLE_9","type":"Data","dataOwner":"Unknown","dataSteward":"Unknown","dataExec":"Unknown","App":"Unknown","version":"Unknown"},
+{"node":13,"name":"SCHEMA_10.TABLE_10","type":"Data","dataOwner":"Unknown","dataSteward":"Unknown","dataExec":"Unknown","App":"Unknown","version":"Unknown"}
+],
+"links":[
+{"source":0,"target":4,"value":1,"comment":"Target:   SCHEMA_A.TABLE_1.COL_1\nData Type:    NUMBER(11) \nSource:  SCHEMA_1.TABLE_1.COL_1\nData Type:    NUMBER(11)"},
+{"source":0,"target":5,"value":1,"comment":"Target:   SCHEMA_A.TABLE_1.COL_2\nData Type:    VARCHAR(50) \nSource:  SCHEMA_2.TABLE_2.COL_2\nData Type:    VARCHAR(50)"},
+{"source":1,"target":6,"value":1,"comment":"Target:   SCHEMA_B.TABLE_1.COL_1\nData Type:    VARCHAR(25) \nSource:  SCHEMA_3.TABLE_3.COL_3\nData Type:    VARCHAR(25)"},
+{"source":1,"target":7,"value":1,"comment":"Target:   SCHEMA_B.TABLE_1.COL_2\nData Type:    CHAR(1) \nSource:  SCHEMA_4.TABLE_4.COL_4\nData Type:    CHAR(1)"},
+{"source":1,"target":8,"value":1,"comment":"Target:   SCHEMA_B.TABLE_1.COL_3\nData Type:    BOOLEAN \nSource:  SCHEMA_5.TABLE_5.COL_5\nData Type:    BOOLEAN"},
+{"source":1,"target":0,"value":1,"comment":"Target:   SCHEMA_B.TABLE_1.COL_4\nData Type:    NUMBER(11) \nSource:  SCHEMA_A.TABLE_1.COL_1\nData Type:    NUMBER(100)"},
+{"source":2,"target":9,"value":1,"comment":"Target:   SCHEMA_C.TABLE_1.COL_1 \nSource:  SCHEMA_6.TABLE_6.COL_6"},
+{"source":2,"target":1,"value":1,"comment":"Target:   SCHEMA_C.TABLE_1.COL_2\nData Type:    NUMBER(100) \nSource:  SCHEMA_B.TABLE_1.COL_1\nData Type:    NUMBER(100)"},
+{"source":3,"target":10,"value":1,"comment":"Target:   SCHEMA_D.TABLE_1.COL_1\nData Type:    VARCHAR(25) \nSource:  SCHEMA_7.TABLE_7.COL_7\nData Type:    VARCHAR(75)"},
+{"source":3,"target":11,"value":1,"comment":"Target:   SCHEMA_D.TABLE_1.COL_2\nData Type:    NUMBER(100) \nSource:  SCHEMA_8.TABLE_8.COL_8\nData Type:    CHAR(4)"},
+{"source":3,"target":12,"value":1,"comment":"Target:   SCHEMA_D.TABLE_1.COL_3\nData Type:    VARCHAR(75) \nSource:  SCHEMA_9.TABLE_9.COL_9\nData Type:    VARCHAR(100)"},
+{"source":3,"target":13,"value":1,"comment":"Target:   SCHEMA_D.TABLE_1.COL_4\nData Type:    CHAR(4) \nSource:  SCHEMA_10.TABLE_10.COL_10\nData Type:    NUMBER(100)"},
+{"source":3,"target":2,"value":1,"comment":"Target:   SCHEMA_D.TABLE_1.COL_5\nData Type:    NUMBER(100) \nSource:  SCHEMA_C.TABLE_1.COL_1\nData Type:    NUMBER(100)"},
+{"source":3,"target":1,"value":1,"comment":"Target:   SCHEMA_D.TABLE_1.COL_6\nData Type:    NUMBER(100) \nSource:  SCHEMA_B.TABLE_1.COL_2\nData Type:    NUMBER(100)"},
+{"source":3,"target":0,"value":1,"comment":"Target:   SCHEMA_D.TABLE_1.COL_7\nData Type:    NUMBER(100) \nSource:  SCHEMA_A.TABLE_1.COL_2\nData Type:    NUMBER(11)"}
+]}

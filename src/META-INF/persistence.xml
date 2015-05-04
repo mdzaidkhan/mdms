@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>			
+<persistence version="2.1"			
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"		
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">		
+	<persistence-unit name="showcase" transaction-type="RESOURCE_LOCAL">		
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>	
+		<class>mdms.jpa.entities.Application</class>	
+		<class>mdms.jpa.entities.DataDeliveryAgreement</class>	
+		<class>mdms.jpa.entities.DataExecutive</class>	
+		<class>mdms.jpa.entities.DataOwner</class>	
+		<class>mdms.jpa.entities.DataSteward</class>	
+		<class>mdms.jpa.entities.FeedAnalysisDetails</class>	
+		<class>mdms.jpa.entities.FeedAnalysis</class>	
+		<class>mdms.jpa.entities.Feed</class>	
+		<class>mdms.jpa.entities.InputTableDetails</class>	
+		<class>mdms.jpa.entities.InputTableGroup</class>	
+		<class>mdms.jpa.entities.LinkedInputAttributeDetails</class>	
+		<class>mdms.jpa.entities.OuputTableGroup</class>	
+		<class>mdms.jpa.entities.OutputTableDetails</class>	
+		<class>mdms.jpa.entities.SynonymGroupDetails</class>	
+		<class>mdms.jpa.entities.SynonymGroup</class>	
+		<class>mdms.jpa.entities.TableAttributeDetails</class>	
+		<class>mdms.jpa.entities.TableAttribute</class>	
+		<class>mdms.jpa.entities.MetadataAutovsmanualStats</class>	
+		<class>mdms.jpa.entities.MetadataCapStats</class>	
+		<class>mdms.jpa.entities.TopSearchesInMdms</class>	
+		<class>mdms.jpa.entities.NewlyUpdatedFeeds</class>	
+		<class>mdms.jpa.entities.UpcomingFeedUpdate</class>
+		<class>mdms.jpa.entities.FeedVersionGroup</class>
+		<properties>	
+			<property name="javax.persistence.jdbc.password" value="" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/mdms" />
+			<property name="eclipselink.ddl-generation" value="create-tables" />
+			<property name="eclipselink.logging.level" value="INFO" />
+		</properties>	
+	</persistence-unit>		
+</persistence>			

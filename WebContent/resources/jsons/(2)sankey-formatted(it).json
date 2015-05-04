@@ -1,0 +1,28 @@
+{
+"nodes":[
+{"node":0,"name":"SCHEMAW.TABLE_1 (Feed W)","type":"Data","dataOwner":"Eloy Espy","dataSteward":"Donnie Morrison","dataExec":"Martin Meister","App":" App_1","version":"1"},
+{"node":1,"name":"SCHEMAX.TABLE_1 (Feed X)","type":"Data","dataOwner":"Luke Lucus","dataSteward":"Tiny Gossett","dataExec":"Martin Meister","App":" App_2","version":"2"},
+{"node":2,"name":"SCHEMAY.TABLE_1 (Feed Y)","type":"Data","dataOwner":"Zenaida Zerbe","dataSteward":"Bradford Mcgee","dataExec":"Martin Meister","App":" App_3","version":"1"},
+{"node":3,"name":"SCHEMAZ.TABLE_1 (Feed Z)","type":"Data","dataOwner":"Zackary Zeigler","dataSteward":"Fredrick Gutierrez","dataExec":"Martin Meister","App":" App_4","version":"1"},
+{"node":4,"name":"SCHEMAR.TABLE_1 (Feed R)","type":"Report","dataOwner":"Pamella Poli","dataSteward":"Elbert Christensen","dataExec":"Martin Meister","App":" App_5","version":"2"},
+{"node":5,"name":"SCHEMA_11.TABLE_11","type":"Data","dataOwner":"Unknown","dataSteward":"Unknown","dataExec":"Unknown","App":"Unknown","version":"Unknown"}
+],
+"links":[
+{"source":0,"target":1,"value":1,"comment":"Target:   SCHEMAX.TABLE_1.COL_4\nData Type:  NUMBER(25) \nSource:  SCHEMAW.TABLE_1.COL_3\nData Type:  NUMBER(11)"},
+{"source":0,"target":1,"value":1,"comment":"Target:   SCHEMAX.TABLE_1.COL_5\nData Type:  NUMBER(25) \nSource:  SCHEMAW.TABLE_1.COL_4\nData Type:  NUMBER(11)"},
+{"source":0,"target":2,"value":1,"comment":"Target:   SCHEMAY.TABLE_1.COL_4\nData Type:  NUMBER(25) \nSource:  SCHEMAW.TABLE_1.COL_1\nData Type:  NUMBER(11)"},
+{"source":0,"target":2,"value":1,"comment":"Target:   SCHEMAY.TABLE_1.COL_5\nData Type:  NUMBER(25) \nSource:  SCHEMAW.TABLE_1.COL_2\nData Type:  NUMBER(11)"},
+{"source":3,"target":2,"value":1,"comment":"Target:   SCHEMAY.TABLE_1.COL_1\nData Type:  NUMBER(25) \nSource:  SCHEMAZ.TABLE_1.COL_1\nData Type:  NUMBER(11)"},
+{"source":3,"target":2,"value":1,"comment":"Target:   SCHEMAY.TABLE_1.COL_2\nData Type:  NUMBER(25) \nSource:  SCHEMAZ.TABLE_1.COL_2\nData Type:  NUMBER(11)"},
+{"source":3,"target":2,"value":1,"comment":"Target:   SCHEMAY.TABLE_1.COL_3\nData Type:  NUMBER(25) \nSource:  SCHEMAZ.TABLE_1.COL_3\nData Type:  NUMBER(11)"},
+{"source":5,"target":1,"value":1,"comment":"Target:   SCHEMAX.TABLE_1.COL_5\nData Type:  NUMBER(25) \nSource:  SCHEMA_11.TABLE_11.COL_1\nData Type:  NUMBER(11)"},
+{"source":3,"target":1,"value":1,"comment":"Target:   SCHEMAX.TABLE_1.COL_1\nData Type:  NUMBER(25) \nSource:  SCHEMAZ.TABLE_1.COL_4\nData Type:  NUMBER(11)"},
+{"source":3,"target":1,"value":1,"comment":"Target:   SCHEMAX.TABLE_1.COL_2\nData Type:  NUMBER(25) \nSource:  SCHEMAZ.TABLE_1.COL_5\nData Type:  NUMBER(11)"},
+{"source":3,"target":1,"value":1,"comment":"Target:   SCHEMAX.TABLE_1.COL_3\nData Type:  NUMBER(25) \nSource:  SCHEMAZ.TABLE_1.COL_6\nData Type:  NUMBER(11)"},
+{"source":1,"target":4,"value":1,"comment":"Target:   SCHEMAR.TABLE_1.COL_1\nData Type:  NUMBER(25)\nSource:  SCHEMAX.TABLE_1.COL_1\nData Type:  NUMBER(11)"},
+{"source":1,"target":4,"value":1,"comment":"Target:   SCHEMAR.TABLE_1.COL_2\nData Type:  NUMBER(25)\nSource:  SCHEMAX.TABLE_1.COL_2\nData Type:  NUMBER(11)"},
+{"source":1,"target":4,"value":1,"comment":"Target:   SCHEMAR.TABLE_1.COL_3\nData Type:  NUMBER(25)\nSource:  SCHEMAX.TABLE_1.COL_3\nData Type:  NUMBER(11)"},
+{"source":1,"target":4,"value":1,"comment":"Target:   SCHEMAR.TABLE_1.COL_4\nData Type:  NUMBER(25)\nSource:  SCHEMAX.TABLE_1.COL_4\nData Type:  NUMBER(11)"},
+{"source":1,"target":4,"value":1,"comment":"Target:   SCHEMAR.TABLE_1.COL_5\nData Type:  NUMBER(25)\nSource:  SCHEMAX.TABLE_1.COL_5\nData Type:  NUMBER(11)"}
+]}
+

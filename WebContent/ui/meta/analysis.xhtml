@@ -1,0 +1,105 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="title">
+        Metadata Management System Dashboard
+    </ui:define>
+
+
+	<ui:define name="content">
+		<script type="text/javascript" src="http://d3js.org/d3.v3.min.js" />
+		<h:outputScript name="/main/js/sankey.js" />
+		<!-- highlight area start-->
+		<div class="ContentSideSections overHidden">
+			Welcome to Metadata Analytics Explorer! <br /> <br />
+
+			<h:form id="form">
+				<p:dialog id="myDialogID" widgetVar="myDialogVar" dynamic="true"
+					modal="true" draggable="false" width="900" height="800"
+					closeOnEscape="true"
+					header="Metadata Data Lineage/ Impact Analysis Visualization - #{analysisGraphView.feedAnalysisDetails.feedAnalysisT.feedT.feedName}(#{analysisGraphView.feedAnalysisDetails.feedAnalysisT.feedT.feedInstance})">
+
+					<c:if test="#{analysisView.ajaxRequest}">
+						<ui:include src="/ui/meta/datalineage.xhtml" />
+						<p:panelGrid columns="8" style="position:absolute;">
+							<b>Feed name</b>
+							<h:outputText
+								value="#{analysisGraphView.feedAnalysisDetails.feedAnalysisT.feedT.feedName}" />
+							<b>Feed type</b>
+							<h:outputText
+								value="#{analysisGraphView.feedAnalysisDetails.feedAnalysisT.feedT.feedType}" />
+							<b>Feed version</b>
+							<h:outputText
+								value="#{analysisGraphView.feedAnalysisDetails.feedAnalysisT.feedT.feedVersion}" />
+							<b>Application Name</b>
+							<h:outputText
+								value="#{analysisGraphView.feedAnalysisDetails.feedAnalysisT.feedT.applicationT.applicationName}" />
+							<b>Domain</b>
+							<h:outputText
+								value="#{analysisGraphView.feedAnalysisDetails.feedAnalysisT.feedT.applicationT.dataExecutiveT.domain}" />
+							<b>Data Steward</b>
+							<h:outputText
+								value="#{analysisGraphView.feedAnalysisDetails.feedAnalysisT.feedT.dataStewardT.name}" />
+							<b>Data Owner</b>
+							<h:outputText
+								value="#{analysisGraphView.feedAnalysisDetails.feedAnalysisT.feedT.dataOwnerT.name}" />
+							<b>Data Executive</b>
+							<h:outputText
+								value="#{analysisGraphView.feedAnalysisDetails.feedAnalysisT.feedT.applicationT.dataExecutiveT.name}" />
+						</p:panelGrid>
+						</c:if>
+				</p:dialog>
+				<p:tabView id="tabView" orientation="top" dynamic="true"
+					cache="true">
+					<p:tab title="PROD">
+						<p:tree id="tree" value="#{analysisView.rootProd}" var="node"
+							dynamic="true" selectionMode="single" orientation="horizontal"
+							selection="#{analysisView.selectedNode}">
+							<p:ajax event="select" update=":form:myDialogID"
+								listener="#{analysisGraphView.onNodeSelect}" />
+							<p:treeNode>
+								<h:outputText value="#{node}" />
+							</p:treeNode>
+						</p:tree>
+					</p:tab>
+
+					<p:tab title="PTA ">
+						<h:form>
+							<p:tree value="#{analysisView.rootPta}" var="node" dynamic="true"
+								selectionMode="single" orientation="horizontal"
+								selection="#{analysisView.selectedNode}">
+								<p:ajax event="select" update=":form:myDialogID"
+									listener="#{analysisGraphView.onNodeSelect}" />
+								<p:treeNode>
+									<h:outputText value="#{node}" />
+								</p:treeNode>
+							</p:tree>
+						</h:form>
+					</p:tab>
+
+					<p:tab title="IT ">
+						<h:form>
+							<p:tree value="#{analysisView.rootIt}" var="node" dynamic="true"
+								selectionMode="single" orientation="horizontal"
+								selection="#{analysisView.selectedNode}">
+								<p:ajax event="select" update=":form:myDialogID"
+									listener="#{analysisGraphView.onNodeSelect}" />
+								<p:treeNode>
+									<h:outputText value="#{node}" />
+								</p:treeNode>
+							</p:tree>
+						</h:form>
+					</p:tab>
+
+				</p:tabView>
+			</h:form>
+		</div>
+		<!-- highlight area end-->
+
+	</ui:define>
+
+</ui:composition>

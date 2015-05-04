@@ -1,0 +1,985 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui" template="/WEB-INF/template.xhtml">
+
+	<ui:define name="title">
+        Metadata Management System Dashboard       
+    </ui:define>
+
+	<ui:define name="content">
+
+		<!-- highlight area start-->
+		<div class="ContentSideSections overHidden">
+			Welcome to MetaData Explorer! <br /> <br />
+
+			<p:tabView dynamic="true" id="tabView">
+				<p:ajax event="tabChange"
+					listener="#{metaDataExplorerView.onTabChange}" />
+				<p:tab title="PROD">
+					<h:form id="formProd">
+						<p:layout style="min-width:auto;min-height:1000px;"
+							id="layOutProd">
+							<p:layoutUnit position="west" size="150">
+								<p:spacer width="10" height="20" />
+								<b>Available Feeds</b>
+								<p:separator />
+								<p:tree value="#{metaDataExplorerView.rootProd}" var="node"
+									dynamic="true" selectionMode="single" highlight="false"
+									style="border-width:0;width:105px;"
+									selection="#{metaDataExplorerView.selectedNode}">
+									<p:ajax event="select" update=":tabView:formProd"
+										listener="#{metaDataExplorerView.onNodeSelect}" />
+									<p:treeNode>
+										<h:outputText value="#{node}" />
+									</p:treeNode>
+								</p:tree>
+							</p:layoutUnit>
+
+							<p:layoutUnit position="center">
+								<c:if
+									test="#{metaDataExplorerView.ajaxRequest and metaDataExplorerView.feed != null}">
+
+									<p:accordionPanel multiple="true">
+										<p:tab
+											title="Details of - #{metaDataExplorerView.feed.feedName}">
+											<p:panelGrid columns="2" style="width:400px"
+												columnClasses="custColText,blue">
+
+												<b>Feed name</b>
+												<h:outputText value="#{metaDataExplorerView.feed.feedName}" />
+												<b>Description</b>
+												<h:outputText value="#{metaDataExplorerView.feed.desc}" />
+												<b>Feed type</b>
+												<h:outputText value="#{metaDataExplorerView.feed.feedType}" />
+
+												<b>Feed version</b>
+												<h:outputText
+													value="#{metaDataExplorerView.feed.feedVersion}" />
+												<b>Application Name</b>
+												<h:outputText
+													value="#{metaDataExplorerView.feed.applicationT.applicationName}" />
+												<b>Domain</b>
+												<h:outputText
+													value="#{metaDataExplorerView.feed.applicationT.dataExecutiveT.domain}" />
+
+												<b>Data Steward</b>
+												<h:outputText
+													value="#{metaDataExplorerView.feed.dataStewardT.name}" />
+												<b>Data Owner</b>
+												<h:outputText
+													value="#{metaDataExplorerView.feed.dataOwnerT.name}" />
+												<b>Data Executive</b>
+												<h:outputText
+													value="#{metaDataExplorerView.feed.applicationT.dataExecutiveT.name}" />
+												<c:if test="#{metaDataExplorerView.feed.outdated eq 'Yes'}">
+													<b>Outdated</b>
+													<h:outputText value="#{metaDataExplorerView.feed.outdated}" />
+												</c:if>
+
+											</p:panelGrid>
+										</p:tab>
+										<p:tab
+											title="Dependent Input Tables of - #{metaDataExplorerView.feed.feedName}">
+											<p:dataTable var="table"
+												value="#{metaDataExplorerView.feed.inputTableGroupT.inputTableDetailsTs}">
+												<!-- 
+												<f:facet name="header"> Input Tables
+												</f:facet> -->
+												<p:column style="width:16px">
+													<p:rowToggler />
+												</p:column>
+												<p:column headerText="Table Name">
+													<h:outputText value="#{table.tableName}" />
+												</p:column>
+
+												<p:column headerText="Table Description">
+													<h:outputText value="#{table.tableDesc}" />
+												</p:column>
+
+												<p:rowExpansion>
+													<p:panelGrid columns="2" style="width:500px"
+														columnClasses="green,blue">
+
+														<f:facet name="header">
+															<h:outputText
+																value="Input Table - #{table.tableName} - Details" />
+														</f:facet>
+														<h:outputText value="Information 1" />
+														<h:outputText value="#{table.info1}" />
+														<h:outputText value="Information 2" />
+														<h:outputText value="#{table.info2}" />
+														<h:outputText value="Information 3" />
+														<h:outputText value="#{table.info3}" />
+														<h:outputText value="Information 4" />
+														<h:outputText value="#{table.info4}" />
+														<h:outputText value="Information 5" />
+														<h:outputText value="#{table.info5}" />
+														<h:outputText value="Information 6" />
+														<h:outputText value="#{table.info6}" />
+														<h:outputText value="Information 7" />
+														<h:outputText value="#{table.info7}" />
+														<h:outputText value="Information 8" />
+														<h:outputText value="#{table.info8}" />
+														<h:outputText value="Information 9" />
+														<h:outputText value="#{table.info9}" />
+														<h:outputText value="Information 10" />
+														<h:outputText value="#{table.info10}" />
+
+													</p:panelGrid>
+												</p:rowExpansion>
+											</p:dataTable>
+										</p:tab>
+										<p:tab
+											title="Dependent Output Tables of - #{metaDataExplorerView.feed.feedName}">
+											<p:dataTable var="table"
+												value="#{metaDataExplorerView.feed.ouputTableGroupT.outputTableDetailsTs}">
+												<!-- <f:facet name="header"> Output Tables
+												</f:facet> -->
+												<p:column style="width:16px">
+													<p:rowToggler />
+												</p:column>
+												<p:column headerText="Table Name">
+													<h:outputText value="#{table.tableName}" />
+												</p:column>
+
+												<p:column headerText="Table Description">
+													<h:outputText value="#{table.tableDesc}" />
+												</p:column>
+
+												<p:rowExpansion>
+													<p:panelGrid columns="2" style="width:500px"
+														columnClasses="green,blue">
+														<f:facet name="header">
+															<h:outputText
+																value="Output Table - #{table.tableName} - Details" />
+														</f:facet>
+														<h:outputText value="Information 1" />
+														<h:outputText value="#{table.info1}" />
+														<h:outputText value="Information 2" />
+														<h:outputText value="#{table.info2}" />
+														<h:outputText value="Information 3" />
+														<h:outputText value="#{table.info3}" />
+														<h:outputText value="Information 4" />
+														<h:outputText value="#{table.info4}" />
+														<h:outputText value="Information 5" />
+														<h:outputText value="#{table.info5}" />
+														<h:outputText value="Information 6" />
+														<h:outputText value="#{table.info6}" />
+														<h:outputText value="Information 7" />
+														<h:outputText value="#{table.info7}" />
+														<h:outputText value="Information 8" />
+														<h:outputText value="#{table.info8}" />
+														<h:outputText value="Information 9" />
+														<h:outputText value="#{table.info9}" />
+														<h:outputText value="Information 10" />
+														<h:outputText value="#{table.info10}" />
+
+													</p:panelGrid>
+												</p:rowExpansion>
+											</p:dataTable>
+										</p:tab>
+										<p:tab
+											title="Columns of - #{metaDataExplorerView.feed.feedName}">
+											<ui:repeat var="outTables"
+												value="#{metaDataExplorerView.feed.ouputTableGroupT.outputTableDetailsTs}">
+												<p:dataTable var="col"
+													value="#{outTables.tableAttributeT.tableAttributeDetailsTs}">
+													<p:column style="width:16px">
+														<p:rowToggler />
+													</p:column>
+
+													<p:column headerText="Column Name">
+														<h:outputText value="#{col.schemaColName}" />
+													</p:column>
+
+													<p:column headerText="Data Type">
+														<h:outputText value="#{col.dataType}" />
+													</p:column>
+
+													<p:column headerText="Description">
+														<h:outputText value="#{col.desc}" />
+													</p:column>
+
+													<p:rowExpansion>
+														<div id="container">
+															<div id="left">
+																<p:panelGrid columns="2" style="width:500px;"
+																	columnClasses="green,blue">
+																	<f:facet name="header">
+																		<h:outputText
+																			value="Details of Source Column - #{col.schemaColName}" />
+																	</f:facet>
+																	<h:outputText value="Column Name" />
+																	<h:outputText value="#{col.schemaColName}" />
+
+																	<h:outputText value="Column Data Type" />
+																	<h:outputText value="#{col.dataType}" />
+
+																	<h:outputText value="Input Column Desc" />
+																	<h:outputText value="#{col.desc}" />
+																	<h:outputText value="Information 1" />
+																	<h:outputText value="#{col.info1}" />
+																	<h:outputText value="Information 2" />
+																	<h:outputText value="#{col.info2}" />
+																	<h:outputText value="Information 3" />
+																	<h:outputText value="#{col.info3}" />
+																	<h:outputText value="Information 4" />
+																	<h:outputText value="#{col.info4}" />
+																	<h:outputText value="Information 5" />
+																	<h:outputText value="#{col.info5}" />
+																	<h:outputText value="Information 6" />
+																	<h:outputText value="#{col.info6}" />
+																	<h:outputText value="Information 7" />
+																	<h:outputText value="#{col.info7}" />
+																	<h:outputText value="Information 8" />
+																	<h:outputText value="#{col.info8}" />
+																	<h:outputText value="Information 9" />
+																	<h:outputText value="#{col.info9}" />
+																	<h:outputText value="Information 10" />
+																	<h:outputText value="#{col.info10}" />
+																	<h:outputText value="Synonym"
+																		rendered="#{not empty col.synonymGroupT.synGroupName}" />
+																	<h:outputText value="#{col.synonymGroupT.synGroupName}"
+																		rendered="#{not empty col.synonymGroupT.synGroupName}" />
+																	<h:outputText value="Synonym Description"
+																		rendered="#{not empty col.synonymGroupT.synGroupName}" />
+																	<h:outputText value="#{col.synonymGroupT.synGroupDesc}"
+																		rendered="#{not empty col.synonymGroupT.synGroupName}" />
+																</p:panelGrid>
+															</div>
+															<div id="center">
+																<br /> <br /> <br /> <br /> <br /> <br /> <br />
+																<br /> <br /> <br />
+
+																<p:graphicImage
+																	title="The source column is populated from the target column."
+																	value="/resources/other/chain-icon.png"
+																	rendered="#{col.linkedInputAttributeDetailsT != null}" />
+															</div>
+															<div id="right">
+																<p:panelGrid columns="2" style="width:500px"
+																	columnClasses="green,blue"
+																	rendered="#{col.linkedInputAttributeDetailsT != null}">
+																	<f:facet name="header">
+																		<h:outputText
+																			value="Details of Input Column - #{col.linkedInputAttributeDetailsT.schemaColName}" />
+																	</f:facet>
+																	<h:outputText value="Input Column Name" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.schemaColName}" />
+
+																	<h:outputText value="Input Column Data Type" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.dataType}" />
+
+																	<h:outputText value="Input Column Desc" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.desc}" />
+																	<h:outputText value="Information 1" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info1}" />
+																	<h:outputText value="Information 2" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info2}" />
+																	<h:outputText value="Information 3" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info3}" />
+																	<h:outputText value="Information 4" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info4}" />
+																	<h:outputText value="Information 5" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info5}" />
+																	<h:outputText value="Information 6" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info6}" />
+																	<h:outputText value="Information 7" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info7}" />
+																	<h:outputText value="Information 8" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info8}" />
+																	<h:outputText value="Information 9" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info9}" />
+																	<h:outputText value="Information 10" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info10}" />
+
+																</p:panelGrid>
+															</div>
+														</div>
+													</p:rowExpansion>
+												</p:dataTable>
+											</ui:repeat>
+										</p:tab>
+										<p:tab
+											title="Data Delivery Agreement of - #{metaDataExplorerView.feed.feedName}">
+											<p:lightBox>
+												<h:outputLink value="#">
+													<h:outputText
+														value="Click here to view the signed delivery Agreement." />
+												</h:outputLink>
+
+												<f:facet name="inline">
+													<p:media value="/resources/other/agreement.pdf"
+														width="1024px" height="720px">
+														<h:outputLink value="link"></h:outputLink>
+													</p:media>
+												</f:facet>
+											</p:lightBox>
+										</p:tab>
+									</p:accordionPanel>
+								</c:if>
+							</p:layoutUnit>
+						</p:layout>
+					</h:form>
+				</p:tab>
+
+				<p:tab title="PTA ">
+					<h:form id="formPta">
+						<p:layout style="min-width:auto;min-height:1000px;" id="layOutPta">
+							<p:layoutUnit position="west" size="150">
+								<p:spacer width="10" height="20" />
+								<b>Available Feeds</b>
+								<p:separator />
+								<p:tree value="#{metaDataExplorerView.rootPta}" var="node"
+									dynamic="true" selectionMode="single" highlight="false"
+									style="border-width:0;width:105px;"
+									selection="#{metaDataExplorerView.selectedNode}">
+									<p:ajax event="select" update=":tabView:formPta"
+										listener="#{metaDataExplorerView.onNodeSelect}" />
+									<p:treeNode>
+										<h:outputText value="#{node}" />
+									</p:treeNode>
+								</p:tree>
+							</p:layoutUnit>
+
+							<p:layoutUnit position="center">
+								<c:if
+									test="#{metaDataExplorerView.ajaxRequest and metaDataExplorerView.feed != null}">
+
+									<p:accordionPanel multiple="true">
+										<p:tab
+											title="Details of - #{metaDataExplorerView.feed.feedName}">
+											<p:panelGrid columns="2" style="width:400px"
+												columnClasses="custColText,blue">
+
+												<b>Feed name</b>
+												<h:outputText value="#{metaDataExplorerView.feed.feedName}" />
+												<b>Description</b>
+												<h:outputText value="#{metaDataExplorerView.feed.desc}" />
+												<b>Feed type</b>
+												<h:outputText value="#{metaDataExplorerView.feed.feedType}" />
+
+												<b>Feed version</b>
+												<h:outputText
+													value="#{metaDataExplorerView.feed.feedVersion}" />
+												<b>Application Name</b>
+												<h:outputText
+													value="#{metaDataExplorerView.feed.applicationT.applicationName}" />
+												<b>Domain</b>
+												<h:outputText
+													value="#{metaDataExplorerView.feed.applicationT.dataExecutiveT.domain}" />
+
+												<b>Data Steward</b>
+												<h:outputText
+													value="#{metaDataExplorerView.feed.dataStewardT.name}" />
+												<b>Data Owner</b>
+												<h:outputText
+													value="#{metaDataExplorerView.feed.dataOwnerT.name}" />
+												<b>Data Executive</b>
+												<h:outputText
+													value="#{metaDataExplorerView.feed.applicationT.dataExecutiveT.name}" />
+												<c:if test="#{metaDataExplorerView.feed.outdated == 'Yes'}">
+													<b>Outdated</b>
+													<h:outputText value="#{metaDataExplorerView.feed.outdated}" />
+												</c:if>
+											</p:panelGrid>
+										</p:tab>
+										<p:tab
+											title="Dependent Input Tables of - #{metaDataExplorerView.feed.feedName}">
+											<p:dataTable var="table"
+												value="#{metaDataExplorerView.feed.inputTableGroupT.inputTableDetailsTs}">
+												<!-- 
+												<f:facet name="header"> Input Tables
+												</f:facet> -->
+												<p:column style="width:16px">
+													<p:rowToggler />
+												</p:column>
+												<p:column headerText="Table Name">
+													<h:outputText value="#{table.tableName}" />
+												</p:column>
+
+												<p:column headerText="Table Description">
+													<h:outputText value="#{table.tableDesc}" />
+												</p:column>
+
+												<p:rowExpansion>
+													<p:panelGrid columns="2" style="width:500px"
+														columnClasses="green,blue">
+
+														<f:facet name="header">
+															<h:outputText
+																value="Input Table - #{table.tableName} - Details" />
+														</f:facet>
+														<h:outputText value="Information 1" />
+														<h:outputText value="#{table.info1}" />
+														<h:outputText value="Information 2" />
+														<h:outputText value="#{table.info2}" />
+														<h:outputText value="Information 3" />
+														<h:outputText value="#{table.info3}" />
+														<h:outputText value="Information 4" />
+														<h:outputText value="#{table.info4}" />
+														<h:outputText value="Information 5" />
+														<h:outputText value="#{table.info5}" />
+														<h:outputText value="Information 6" />
+														<h:outputText value="#{table.info6}" />
+														<h:outputText value="Information 7" />
+														<h:outputText value="#{table.info7}" />
+														<h:outputText value="Information 8" />
+														<h:outputText value="#{table.info8}" />
+														<h:outputText value="Information 9" />
+														<h:outputText value="#{table.info9}" />
+														<h:outputText value="Information 10" />
+														<h:outputText value="#{table.info10}" />
+
+													</p:panelGrid>
+												</p:rowExpansion>
+											</p:dataTable>
+										</p:tab>
+										<p:tab
+											title="Dependent Output Tables of - #{metaDataExplorerView.feed.feedName}">
+											<p:dataTable var="table"
+												value="#{metaDataExplorerView.feed.ouputTableGroupT.outputTableDetailsTs}">
+												<!-- <f:facet name="header"> Output Tables
+												</f:facet> -->
+												<p:column style="width:16px">
+													<p:rowToggler />
+												</p:column>
+												<p:column headerText="Table Name">
+													<h:outputText value="#{table.tableName}" />
+												</p:column>
+
+												<p:column headerText="Table Description">
+													<h:outputText value="#{table.tableDesc}" />
+												</p:column>
+
+												<p:rowExpansion>
+													<p:panelGrid columns="2" style="width:500px"
+														columnClasses="green,blue">
+														<f:facet name="header">
+															<h:outputText
+																value="Output Table - #{table.tableName} - Details" />
+														</f:facet>
+														<h:outputText value="Information 1" />
+														<h:outputText value="#{table.info1}" />
+														<h:outputText value="Information 2" />
+														<h:outputText value="#{table.info2}" />
+														<h:outputText value="Information 3" />
+														<h:outputText value="#{table.info3}" />
+														<h:outputText value="Information 4" />
+														<h:outputText value="#{table.info4}" />
+														<h:outputText value="Information 5" />
+														<h:outputText value="#{table.info5}" />
+														<h:outputText value="Information 6" />
+														<h:outputText value="#{table.info6}" />
+														<h:outputText value="Information 7" />
+														<h:outputText value="#{table.info7}" />
+														<h:outputText value="Information 8" />
+														<h:outputText value="#{table.info8}" />
+														<h:outputText value="Information 9" />
+														<h:outputText value="#{table.info9}" />
+														<h:outputText value="Information 10" />
+														<h:outputText value="#{table.info10}" />
+
+													</p:panelGrid>
+												</p:rowExpansion>
+											</p:dataTable>
+										</p:tab>
+										<p:tab
+											title="Columns of - #{metaDataExplorerView.feed.feedName}">
+											<ui:repeat var="outTables"
+												value="#{metaDataExplorerView.feed.ouputTableGroupT.outputTableDetailsTs}">
+												<p:dataTable var="col"
+													value="#{outTables.tableAttributeT.tableAttributeDetailsTs}">
+													<p:column style="width:16px">
+														<p:rowToggler />
+													</p:column>
+
+													<p:column headerText="Column Name">
+														<h:outputText value="#{col.schemaColName}" />
+													</p:column>
+
+													<p:column headerText="Data Type">
+														<h:outputText value="#{col.dataType}" />
+													</p:column>
+
+													<p:column headerText="Description">
+														<h:outputText value="#{col.desc}" />
+													</p:column>
+
+													<p:rowExpansion>
+														<div id="container">
+															<div id="left">
+																<p:panelGrid columns="2" style="width:500px;"
+																	columnClasses="green,blue">
+																	<f:facet name="header">
+																		<h:outputText
+																			value="Details of Source Column - #{col.schemaColName}" />
+																	</f:facet>
+																	<h:outputText value="Column Name" />
+																	<h:outputText value="#{col.schemaColName}" />
+
+																	<h:outputText value="Column Data Type" />
+																	<h:outputText value="#{col.dataType}" />
+
+																	<h:outputText value="Input Column Desc" />
+																	<h:outputText value="#{col.desc}" />
+																	<h:outputText value="Information 1" />
+																	<h:outputText value="#{col.info1}" />
+																	<h:outputText value="Information 2" />
+																	<h:outputText value="#{col.info2}" />
+																	<h:outputText value="Information 3" />
+																	<h:outputText value="#{col.info3}" />
+																	<h:outputText value="Information 4" />
+																	<h:outputText value="#{col.info4}" />
+																	<h:outputText value="Information 5" />
+																	<h:outputText value="#{col.info5}" />
+																	<h:outputText value="Information 6" />
+																	<h:outputText value="#{col.info6}" />
+																	<h:outputText value="Information 7" />
+																	<h:outputText value="#{col.info7}" />
+																	<h:outputText value="Information 8" />
+																	<h:outputText value="#{col.info8}" />
+																	<h:outputText value="Information 9" />
+																	<h:outputText value="#{col.info9}" />
+																	<h:outputText value="Information 10" />
+																	<h:outputText value="#{col.info10}" />
+																	<h:outputText value="Synonym"
+																		rendered="#{not empty col.synonymGroupT.synGroupName}" />
+																	<h:outputText value="#{col.synonymGroupT.synGroupName}"
+																		rendered="#{not empty col.synonymGroupT.synGroupName}" />
+																	<h:outputText value="Synonym Description"
+																		rendered="#{not empty col.synonymGroupT.synGroupName}" />
+																	<h:outputText value="#{col.synonymGroupT.synGroupDesc}"
+																		rendered="#{not empty col.synonymGroupT.synGroupName}" />
+																</p:panelGrid>
+															</div>
+															<div id="center">
+																<br /> <br /> <br /> <br /> <br /> <br /> <br />
+																<br /> <br /> <br />
+																<p:graphicImage
+																	title="The source column is populated from the target column."
+																	value="/resources/other/chain-icon.png"
+																	rendered="#{col.linkedInputAttributeDetailsT != null}" />
+															</div>
+															<div id="right">
+																<p:panelGrid columns="2" style="width:500px"
+																	columnClasses="green,blue"
+																	rendered="#{col.linkedInputAttributeDetailsT != null}">
+																	<f:facet name="header">
+																		<h:outputText
+																			value="Details of Input Column - #{col.linkedInputAttributeDetailsT.schemaColName}" />
+																	</f:facet>
+																	<h:outputText value="Input Column Name" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.schemaColName}" />
+
+																	<h:outputText value="Input Column Data Type" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.dataType}" />
+
+																	<h:outputText value="Input Column Desc" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.desc}" />
+																	<h:outputText value="Information 1" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info1}" />
+																	<h:outputText value="Information 2" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info2}" />
+																	<h:outputText value="Information 3" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info3}" />
+																	<h:outputText value="Information 4" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info4}" />
+																	<h:outputText value="Information 5" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info5}" />
+																	<h:outputText value="Information 6" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info6}" />
+																	<h:outputText value="Information 7" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info7}" />
+																	<h:outputText value="Information 8" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info8}" />
+																	<h:outputText value="Information 9" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info9}" />
+																	<h:outputText value="Information 10" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info10}" />
+
+																</p:panelGrid>
+															</div>
+														</div>
+													</p:rowExpansion>
+												</p:dataTable>
+											</ui:repeat>
+										</p:tab>
+										<p:tab
+											title="Data Delivery Agreement of - #{metaDataExplorerView.feed.feedName}">
+											<p:lightBox>
+												<h:outputLink value="#">
+													<h:outputText
+														value="Click here to view the signed delivery Agreement." />
+												</h:outputLink>
+
+												<f:facet name="inline">
+													<p:media value="/resources/other/agreement.pdf"
+														width="1024px" height="720px">
+														<h:outputLink value="link"></h:outputLink>
+													</p:media>
+												</f:facet>
+											</p:lightBox>
+										</p:tab>
+									</p:accordionPanel>
+								</c:if>
+							</p:layoutUnit>
+						</p:layout>
+					</h:form>
+				</p:tab>
+
+				<p:tab title="IT ">
+					<h:form id="formIt">
+						<p:layout style="min-width:auto;min-height:1000px;" id="layOutIt">
+							<p:layoutUnit position="west" size="150">
+								<p:spacer width="10" height="20" />
+								<b>Available Feeds</b>
+								<p:separator />
+								<p:tree value="#{metaDataExplorerView.rootIt}" var="node"
+									dynamic="true" selectionMode="single" highlight="false"
+									style="border-width:0;width:105px;"
+									selection="#{metaDataExplorerView.selectedNode}">
+									<p:ajax event="select" update=":tabView:formIt"
+										listener="#{metaDataExplorerView.onNodeSelect}" />
+									<p:treeNode>
+										<h:outputText value="#{node}" />
+									</p:treeNode>
+								</p:tree>
+							</p:layoutUnit>
+
+							<p:layoutUnit position="center">
+								<c:if
+									test="#{metaDataExplorerView.ajaxRequest and metaDataExplorerView.feed != null}">
+
+									<p:accordionPanel multiple="true">
+										<p:tab
+											title="Details of - #{metaDataExplorerView.feed.feedName}">
+											<p:panelGrid columns="2" style="width:400px"
+												columnClasses="custColText,blue">
+
+												<b>Feed name</b>
+												<h:outputText value="#{metaDataExplorerView.feed.feedName}" />
+												<b>Description</b>
+												<h:outputText value="#{metaDataExplorerView.feed.desc}" />
+												<b>Feed type</b>
+												<h:outputText value="#{metaDataExplorerView.feed.feedType}" />
+
+												<b>Feed version</b>
+												<h:outputText
+													value="#{metaDataExplorerView.feed.feedVersion}" />
+												<b>Application Name</b>
+												<h:outputText
+													value="#{metaDataExplorerView.feed.applicationT.applicationName}" />
+												<b>Domain</b>
+												<h:outputText
+													value="#{metaDataExplorerView.feed.applicationT.dataExecutiveT.domain}" />
+
+												<b>Data Steward</b>
+												<h:outputText
+													value="#{metaDataExplorerView.feed.dataStewardT.name}" />
+												<b>Data Owner</b>
+												<h:outputText
+													value="#{metaDataExplorerView.feed.dataOwnerT.name}" />
+												<b>Data Executive</b>
+												<h:outputText
+													value="#{metaDataExplorerView.feed.applicationT.dataExecutiveT.name}" />
+												<c:if test="#{metaDataExplorerView.feed.outdated eq 'Yes'}">
+													<b>Outdated</b>
+													<h:outputText value="#{metaDataExplorerView.feed.outdated}" />
+												</c:if>
+											</p:panelGrid>
+										</p:tab>
+										<p:tab
+											title="Dependent Input Tables of - #{metaDataExplorerView.feed.feedName}">
+											<p:dataTable var="table"
+												value="#{metaDataExplorerView.feed.inputTableGroupT.inputTableDetailsTs}">
+												<!-- 
+												<f:facet name="header"> Input Tables
+												</f:facet> -->
+												<p:column style="width:16px">
+													<p:rowToggler />
+												</p:column>
+												<p:column headerText="Table Name">
+													<h:outputText value="#{table.tableName}" />
+												</p:column>
+
+												<p:column headerText="Table Description">
+													<h:outputText value="#{table.tableDesc}" />
+												</p:column>
+
+												<p:rowExpansion>
+													<p:panelGrid columns="2" style="width:500px"
+														columnClasses="green,blue">
+
+														<f:facet name="header">
+															<h:outputText
+																value="Input Table - #{table.tableName} - Details" />
+														</f:facet>
+														<h:outputText value="Information 1" />
+														<h:outputText value="#{table.info1}" />
+														<h:outputText value="Information 2" />
+														<h:outputText value="#{table.info2}" />
+														<h:outputText value="Information 3" />
+														<h:outputText value="#{table.info3}" />
+														<h:outputText value="Information 4" />
+														<h:outputText value="#{table.info4}" />
+														<h:outputText value="Information 5" />
+														<h:outputText value="#{table.info5}" />
+														<h:outputText value="Information 6" />
+														<h:outputText value="#{table.info6}" />
+														<h:outputText value="Information 7" />
+														<h:outputText value="#{table.info7}" />
+														<h:outputText value="Information 8" />
+														<h:outputText value="#{table.info8}" />
+														<h:outputText value="Information 9" />
+														<h:outputText value="#{table.info9}" />
+														<h:outputText value="Information 10" />
+														<h:outputText value="#{table.info10}" />
+
+													</p:panelGrid>
+												</p:rowExpansion>
+											</p:dataTable>
+										</p:tab>
+										<p:tab
+											title="Dependent Output Tables of - #{metaDataExplorerView.feed.feedName}">
+											<p:dataTable var="table"
+												value="#{metaDataExplorerView.feed.ouputTableGroupT.outputTableDetailsTs}">
+												<!-- <f:facet name="header"> Output Tables
+												</f:facet> -->
+												<p:column style="width:16px">
+													<p:rowToggler />
+												</p:column>
+												<p:column headerText="Table Name">
+													<h:outputText value="#{table.tableName}" />
+												</p:column>
+
+												<p:column headerText="Table Description">
+													<h:outputText value="#{table.tableDesc}" />
+												</p:column>
+
+												<p:rowExpansion>
+													<p:panelGrid columns="2" style="width:500px"
+														columnClasses="green,blue">
+														<f:facet name="header">
+															<h:outputText
+																value="Output Table - #{table.tableName} - Details" />
+														</f:facet>
+														<h:outputText value="Information 1" />
+														<h:outputText value="#{table.info1}" />
+														<h:outputText value="Information 2" />
+														<h:outputText value="#{table.info2}" />
+														<h:outputText value="Information 3" />
+														<h:outputText value="#{table.info3}" />
+														<h:outputText value="Information 4" />
+														<h:outputText value="#{table.info4}" />
+														<h:outputText value="Information 5" />
+														<h:outputText value="#{table.info5}" />
+														<h:outputText value="Information 6" />
+														<h:outputText value="#{table.info6}" />
+														<h:outputText value="Information 7" />
+														<h:outputText value="#{table.info7}" />
+														<h:outputText value="Information 8" />
+														<h:outputText value="#{table.info8}" />
+														<h:outputText value="Information 9" />
+														<h:outputText value="#{table.info9}" />
+														<h:outputText value="Information 10" />
+														<h:outputText value="#{table.info10}" />
+
+													</p:panelGrid>
+												</p:rowExpansion>
+											</p:dataTable>
+										</p:tab>
+										<p:tab
+											title="Columns of - #{metaDataExplorerView.feed.feedName}">
+											<ui:repeat var="outTables"
+												value="#{metaDataExplorerView.feed.ouputTableGroupT.outputTableDetailsTs}">
+												<p:dataTable var="col"
+													value="#{outTables.tableAttributeT.tableAttributeDetailsTs}">
+													<p:column style="width:16px">
+														<p:rowToggler />
+													</p:column>
+
+													<p:column headerText="Column Name">
+														<h:outputText value="#{col.schemaColName}" />
+													</p:column>
+
+													<p:column headerText="Data Type">
+														<h:outputText value="#{col.dataType}" />
+													</p:column>
+
+													<p:column headerText="Description">
+														<h:outputText value="#{col.desc}" />
+													</p:column>
+
+													<p:rowExpansion>
+														<div id="container">
+															<div id="left">
+																<p:panelGrid columns="2" style="width:500px;"
+																	columnClasses="green,blue">
+																	<f:facet name="header">
+																		<h:outputText
+																			value="Details of Source Column - #{col.schemaColName}" />
+																	</f:facet>
+																	<h:outputText value="Column Name" />
+																	<h:outputText value="#{col.schemaColName}" />
+
+																	<h:outputText value="Column Data Type" />
+																	<h:outputText value="#{col.dataType}" />
+
+																	<h:outputText value="Input Column Desc" />
+																	<h:outputText value="#{col.desc}" />
+																	<h:outputText value="Information 1" />
+																	<h:outputText value="#{col.info1}" />
+																	<h:outputText value="Information 2" />
+																	<h:outputText value="#{col.info2}" />
+																	<h:outputText value="Information 3" />
+																	<h:outputText value="#{col.info3}" />
+																	<h:outputText value="Information 4" />
+																	<h:outputText value="#{col.info4}" />
+																	<h:outputText value="Information 5" />
+																	<h:outputText value="#{col.info5}" />
+																	<h:outputText value="Information 6" />
+																	<h:outputText value="#{col.info6}" />
+																	<h:outputText value="Information 7" />
+																	<h:outputText value="#{col.info7}" />
+																	<h:outputText value="Information 8" />
+																	<h:outputText value="#{col.info8}" />
+																	<h:outputText value="Information 9" />
+																	<h:outputText value="#{col.info9}" />
+																	<h:outputText value="Information 10" />
+																	<h:outputText value="#{col.info10}" />
+																	<h:outputText value="Synonym"
+																		rendered="#{not empty col.synonymGroupT.synGroupName}" />
+																	<h:outputText value="#{col.synonymGroupT.synGroupName}"
+																		rendered="#{not empty col.synonymGroupT.synGroupName}" />
+																	<h:outputText value="Synonym Description"
+																		rendered="#{not empty col.synonymGroupT.synGroupName}" />
+																	<h:outputText value="#{col.synonymGroupT.synGroupDesc}"
+																		rendered="#{not empty col.synonymGroupT.synGroupName}" />
+
+																</p:panelGrid>
+															</div>
+															<div id="center">
+																<br /> <br /> <br /> <br /> <br /> <br /> <br />
+																<br /> <br /> <br />
+																<p:graphicImage
+																	title="The source column is populated from the target column."
+																	value="/resources/other/chain-icon.png"
+																	rendered="#{col.linkedInputAttributeDetailsT != null}" />
+															</div>
+															<div id="right">
+																<p:panelGrid columns="2" style="width:500px"
+																	columnClasses="green,blue"
+																	rendered="#{col.linkedInputAttributeDetailsT != null}">
+																	<f:facet name="header">
+																		<h:outputText
+																			value="Details of Input Column - #{col.linkedInputAttributeDetailsT.schemaColName}" />
+																	</f:facet>
+																	<h:outputText value="Input Column Name" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.schemaColName}" />
+
+																	<h:outputText value="Input Column Data Type" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.dataType}" />
+
+																	<h:outputText value="Input Column Desc" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.desc}" />
+																	<h:outputText value="Information 1" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info1}" />
+																	<h:outputText value="Information 2" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info2}" />
+																	<h:outputText value="Information 3" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info3}" />
+																	<h:outputText value="Information 4" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info4}" />
+																	<h:outputText value="Information 5" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info5}" />
+																	<h:outputText value="Information 6" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info6}" />
+																	<h:outputText value="Information 7" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info7}" />
+																	<h:outputText value="Information 8" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info8}" />
+																	<h:outputText value="Information 9" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info9}" />
+																	<h:outputText value="Information 10" />
+																	<h:outputText
+																		value="#{col.linkedInputAttributeDetailsT.info10}" />
+
+																</p:panelGrid>
+															</div>
+														</div>
+													</p:rowExpansion>
+												</p:dataTable>
+											</ui:repeat>
+										</p:tab>
+										<p:tab
+											title="Data Delivery Agreement of - #{metaDataExplorerView.feed.feedName}">
+											<p:lightBox>
+												<h:outputLink value="#">
+													<h:outputText
+														value="Click here to view the signed delivery Agreement." />
+												</h:outputLink>
+
+												<f:facet name="inline">
+													<p:media value="/resources/other/agreement.pdf"
+														width="1024px" height="720px">
+														<h:outputLink value="link"></h:outputLink>
+													</p:media>
+												</f:facet>
+											</p:lightBox>
+										</p:tab>
+									</p:accordionPanel>
+								</c:if>
+							</p:layoutUnit>
+						</p:layout>
+					</h:form>
+				</p:tab>
+
+			</p:tabView>
+		</div>
+		<!-- highlight area end-->
+
+	</ui:define>
+
+</ui:composition>
